@@ -23,7 +23,7 @@ import py.edu.facitec.model.Usuario;
 @Transactional
 
 
-@RequestMapping(value="/usuarios")
+@RequestMapping(value="/usuario")
 public class UsuarioController {
 	
 			@Autowired
@@ -53,11 +53,11 @@ public class UsuarioController {
 	}		
 			
 		
-			@RequestMapping(method=RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_VALUE,value="/{id}")
-			public ResponseEntity<Usuario> eliminar(@PathVariable Integer id){
+			@RequestMapping(method=RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_VALUE,value="/{login:.+}",headers="Accept=*/*")
+			public ResponseEntity<Usuario> eliminar(@PathVariable String login){
 				
 				
-				Usuario usuario=usuarioDAO.buscar(id);
+				Usuario usuario=usuarioDAO.buscar(login);
 				
 				if(usuario==null){
 					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
